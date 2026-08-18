@@ -1,0 +1,331 @@
+{
+  "schema_version": "1.0",
+  "case_id": "END-016",
+  "data_quality": {
+    "completeness": 1.0,
+    "issues": [],
+    "missing_information": [
+      "No measured or validated LT1/LT2 marker was supplied."
+    ],
+    "cannot_infer": [
+      "exact LT1",
+      "exact LT2",
+      "medical or injury diagnosis from training data alone"
+    ]
+  },
+  "athlete_state": [
+    {
+      "capability": "durability",
+      "status": "weak",
+      "evidence_references": [
+        "derived:long_runs_90_minutes",
+        "derived:longest_recent_run_minutes"
+      ],
+      "rationale": "Long-duration exposure is insufficient or late-race fade is evident.",
+      "confidence": 0.88
+    },
+    {
+      "capability": "volume continuity",
+      "status": "weak",
+      "evidence_references": [
+        "derived:weekly_distance_cv",
+        "derived:max_week_over_week_increase_ratio",
+        "derived:zero_or_missing_weeks"
+      ],
+      "rationale": "Weekly load is too volatile to treat average volume as stable fitness exposure.",
+      "confidence": 0.9
+    },
+    {
+      "capability": "speed reserve",
+      "status": "strong",
+      "evidence_references": [
+        "goal:race",
+        "performance:PB-1"
+      ],
+      "rationale": "Historical performance exceeds the speed requirement of the current goal.",
+      "confidence": 0.9
+    }
+  ],
+  "goal_analysis": {
+    "target_pace_seconds_per_km": 199.07571987202274,
+    "relation_to_history": "The target is slower than the athlete's historical best and is best framed as returning to previously demonstrated capacity.",
+    "feasibility": "return_to_form",
+    "rationale": "The target is slower than the athlete's historical best and is best framed as returning to previously demonstrated capacity.",
+    "evidence_references": [
+      "goal:race",
+      "performance:PB-1"
+    ],
+    "confidence": 0.92
+  },
+  "limiters": [
+    {
+      "limiter": "durability",
+      "priority": "primary",
+      "status": "weak",
+      "rationale": "The main limiter is the ability to preserve performance over race-relevant duration.",
+      "evidence_references": [
+        "derived:long_runs_90_minutes",
+        "derived:longest_recent_run_minutes"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "limiter": "volume continuity",
+      "priority": "primary",
+      "status": "weak",
+      "rationale": "Training continuity is a primary limiter because exposure varies excessively between weeks.",
+      "evidence_references": [
+        "derived:weekly_distance_cv",
+        "derived:max_week_over_week_increase_ratio",
+        "derived:zero_or_missing_weeks"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "limiter": "musculoskeletal tolerance",
+      "priority": "secondary",
+      "status": "rebuilding",
+      "rationale": "Mechanical loading tolerance is still rebuilding and constrains progression speed.",
+      "evidence_references": [
+        "signal:SIG-TISSUE"
+      ],
+      "confidence": 0.88
+    }
+  ],
+  "plan_findings": [
+    {
+      "claim_code": "PLAN_WRONG_LIMITER",
+      "category": "limiter_alignment",
+      "severity": "high",
+      "finding": "The plan spends disproportionate recovery resources on VO2max despite a different primary limiter.",
+      "evidence_references": [
+        "plan-session:P01-Q1",
+        "plan-session:P01-Q2",
+        "plan-session:P02-Q1",
+        "plan-session:P02-Q2"
+      ],
+      "consequence": "The athlete may become sharper without solving race-duration failure.",
+      "recommendation": "Reallocate one VO2max session toward durability, continuity, or controlled threshold work."
+    },
+    {
+      "claim_code": "PLAN_EXCESS_VO2",
+      "category": "intensity",
+      "severity": "high",
+      "finding": "VO2max frequency is excessive for the diagnosed need.",
+      "evidence_references": [
+        "plan-session:P01-Q1",
+        "plan-session:P01-Q2",
+        "plan-session:P02-Q1",
+        "plan-session:P02-Q2"
+      ],
+      "consequence": "High recovery cost crowds out the adaptations that matter most.",
+      "recommendation": "Retain only a small maintenance dose if speed support is needed."
+    }
+  ],
+  "recommended_changes": [
+    {
+      "action": "add",
+      "target": "progressive 90-120 minute durability exposure",
+      "rationale": "Increase long-duration exposure gradually while keeping most of the work controlled.",
+      "evidence_references": [
+        "derived:long_runs_90_minutes",
+        "derived:longest_recent_run_minutes"
+      ],
+      "priority": "primary"
+    },
+    {
+      "action": "modify",
+      "target": "weekly session architecture",
+      "rationale": "Fix global load distribution before optimizing individual workout details.",
+      "evidence_references": [
+        "plan-session:P01-Q1"
+      ],
+      "priority": "primary"
+    }
+  ],
+  "uncertainty": {
+    "missing_information": [
+      "No measured or validated LT1/LT2 marker was supplied."
+    ],
+    "conclusions_affected": [
+      "precise threshold prescription"
+    ],
+    "should_not_infer": [
+      "exact LT1",
+      "exact LT2",
+      "medical or injury diagnosis from training data alone"
+    ],
+    "follow_up_data": [
+      "Provide a recent controlled test, validated field estimate, or laboratory threshold assessment."
+    ]
+  },
+  "claims": [
+    {
+      "code": "GOAL_RETURN_TO_FORM",
+      "category": "goal",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "The target is slower than the athlete's historical best and is best framed as returning to previously demonstrated capacity.",
+      "evidence_references": [
+        "goal:race",
+        "performance:PB-1"
+      ],
+      "confidence": 0.92
+    },
+    {
+      "code": "NOT_LIMITER_SPEED",
+      "category": "limiter",
+      "stance": "supports",
+      "priority": "not_priority",
+      "statement": "Historical race performance indicates that raw speed is not the primary limiter.",
+      "evidence_references": [
+        "goal:race",
+        "performance:PB-1"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "code": "LIMITER_DURABILITY",
+      "category": "limiter",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "The main limiter is the ability to preserve performance over race-relevant duration.",
+      "evidence_references": [
+        "derived:long_runs_90_minutes",
+        "derived:longest_recent_run_minutes"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "code": "STATE_LATE_RACE_FADE",
+      "category": "athlete_state",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "Available evidence is consistent with performance decay over longer duration.",
+      "evidence_references": [
+        "derived:long_runs_90_minutes",
+        "derived:longest_recent_run_minutes"
+      ],
+      "confidence": 0.82
+    },
+    {
+      "code": "LIMITER_VOLUME_CONTINUITY",
+      "category": "limiter",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "Training continuity is a primary limiter because exposure varies excessively between weeks.",
+      "evidence_references": [
+        "derived:weekly_distance_cv",
+        "derived:max_week_over_week_increase_ratio",
+        "derived:zero_or_missing_weeks"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "code": "STATE_VOLATILE_LOAD",
+      "category": "athlete_state",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "The athlete's load pattern is volatile rather than consistently high.",
+      "evidence_references": [
+        "derived:weekly_distance_cv",
+        "derived:max_week_over_week_increase_ratio",
+        "derived:zero_or_missing_weeks"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "code": "LIMITER_MUSCULOSKELETAL_TOLERANCE",
+      "category": "limiter",
+      "stance": "supports",
+      "priority": "secondary",
+      "statement": "Mechanical loading tolerance is still rebuilding and constrains progression speed.",
+      "evidence_references": [
+        "signal:SIG-TISSUE"
+      ],
+      "confidence": 0.88
+    },
+    {
+      "code": "PLAN_WRONG_LIMITER",
+      "category": "plan",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "The plan spends disproportionate recovery resources on VO2max despite a different primary limiter.",
+      "evidence_references": [
+        "plan-session:P01-Q1",
+        "plan-session:P01-Q2",
+        "plan-session:P02-Q1",
+        "plan-session:P02-Q2"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "code": "PLAN_EXCESS_VO2",
+      "category": "plan",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "VO2max frequency is excessive for the diagnosed need.",
+      "evidence_references": [
+        "plan-session:P01-Q1",
+        "plan-session:P01-Q2",
+        "plan-session:P02-Q1",
+        "plan-session:P02-Q2"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "code": "PLAN_ADD_DURABILITY",
+      "category": "plan",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "The plan should add progressive long-duration aerobic exposure.",
+      "evidence_references": [
+        "derived:long_runs_90_minutes"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "code": "PLAN_MODIFY_KEY_SESSION",
+      "category": "plan",
+      "stance": "supports",
+      "priority": "primary",
+      "statement": "At least one key session or its placement should be modified.",
+      "evidence_references": [
+        "plan-session:P01-Q1",
+        "plan-session:P01-Q2",
+        "plan-session:P02-Q1",
+        "plan-session:P02-Q2"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "code": "UNCERTAINTY_LT1_LT2",
+      "category": "uncertainty",
+      "stance": "uncertain",
+      "priority": "primary",
+      "statement": "Exact LT1 and LT2 cannot be inferred from the supplied data.",
+      "evidence_references": [
+        "athlete:profile"
+      ],
+      "confidence": 0.98
+    },
+    {
+      "code": "UNCERTAINTY_INJURY_DIAGNOSIS",
+      "category": "uncertainty",
+      "stance": "uncertain",
+      "priority": "supporting",
+      "statement": "Training data do not support a medical diagnosis.",
+      "evidence_references": [
+        "athlete:profile"
+      ],
+      "confidence": 0.99
+    }
+  ],
+  "overall_assessment": {
+    "verdict": "revise",
+    "risk_level": "high",
+    "summary": "Verdict: revise. The plan should be revised around the primary limiter(s): durability, volume continuity, while preserving only the lowest-cost useful stimuli.",
+    "confidence": 0.78,
+    "hard_stop_recommended": false
+  }
+}

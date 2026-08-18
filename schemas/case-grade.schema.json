@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "DimensionGrade": {
+      "additionalProperties": false,
+      "properties": {
+        "dimension": {
+          "$ref": "#/$defs/ScoreDimension"
+        },
+        "score": {
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "max_points": {
+          "exclusiveMinimum": 0,
+          "title": "Max Points",
+          "type": "number"
+        },
+        "required_hits": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Hits",
+          "type": "array"
+        },
+        "required_misses": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Misses",
+          "type": "array"
+        },
+        "optional_hits": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Optional Hits",
+          "type": "array"
+        },
+        "forbidden_hits": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Hits",
+          "type": "array"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "dimension",
+        "score",
+        "max_points"
+      ],
+      "title": "DimensionGrade",
+      "type": "object"
+    },
+    "ScoreDimension": {
+      "enum": [
+        "diagnosis",
+        "plan_reasoning",
+        "evidence_grounding",
+        "uncertainty",
+        "safety",
+        "instruction_schema"
+      ],
+      "title": "ScoreDimension",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "case_id": {
+      "title": "Case Id",
+      "type": "string"
+    },
+    "score": {
+      "minimum": 0,
+      "title": "Score",
+      "type": "number"
+    },
+    "max_score": {
+      "exclusiveMinimum": 0,
+      "title": "Max Score",
+      "type": "number"
+    },
+    "passed": {
+      "title": "Passed",
+      "type": "boolean"
+    },
+    "hard_fail": {
+      "default": false,
+      "title": "Hard Fail",
+      "type": "boolean"
+    },
+    "hard_fail_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Hard Fail Reasons",
+      "type": "array"
+    },
+    "dimensions": {
+      "items": {
+        "$ref": "#/$defs/DimensionGrade"
+      },
+      "title": "Dimensions",
+      "type": "array"
+    },
+    "valid_evidence_ratio": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Valid Evidence Ratio",
+      "type": "number"
+    },
+    "invalid_evidence_references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Invalid Evidence References",
+      "type": "array"
+    },
+    "claim_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Claim Codes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "case_id",
+    "score",
+    "max_score",
+    "passed",
+    "valid_evidence_ratio"
+  ],
+  "title": "CaseGrade",
+  "type": "object"
+}

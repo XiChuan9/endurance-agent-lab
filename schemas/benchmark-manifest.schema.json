@@ -1,0 +1,83 @@
+{
+  "$defs": {
+    "ManifestCase": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "enabled": {
+          "default": true,
+          "title": "Enabled",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "case_id",
+        "path",
+        "category"
+      ],
+      "title": "ManifestCase",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "benchmark_id": {
+      "title": "Benchmark Id",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "license": {
+      "default": "Apache-2.0",
+      "title": "License",
+      "type": "string"
+    },
+    "scoring_max": {
+      "default": 20.0,
+      "title": "Scoring Max",
+      "type": "number"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/ManifestCase"
+      },
+      "title": "Cases",
+      "type": "array"
+    }
+  },
+  "required": [
+    "benchmark_id",
+    "version",
+    "title",
+    "description",
+    "cases"
+  ],
+  "title": "BenchmarkManifest",
+  "type": "object"
+}

@@ -1,0 +1,10 @@
+services:
+  eal:
+    build: .
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./runs:/app/runs
+      - ./private:/app/private
+    command: ["demo", "--clean"]

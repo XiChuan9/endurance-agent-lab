@@ -1,0 +1,140 @@
+{
+  "$defs": {
+    "CategoryScore": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "max_score": {
+          "title": "Max Score",
+          "type": "number"
+        },
+        "percentage": {
+          "title": "Percentage",
+          "type": "number"
+        },
+        "cases": {
+          "title": "Cases",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "category",
+        "score",
+        "max_score",
+        "percentage",
+        "cases"
+      ],
+      "title": "CategoryScore",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "provider": {
+      "title": "Provider",
+      "type": "string"
+    },
+    "model": {
+      "title": "Model",
+      "type": "string"
+    },
+    "total_score": {
+      "title": "Total Score",
+      "type": "number"
+    },
+    "max_score": {
+      "title": "Max Score",
+      "type": "number"
+    },
+    "percentage": {
+      "title": "Percentage",
+      "type": "number"
+    },
+    "cases_total": {
+      "title": "Cases Total",
+      "type": "integer"
+    },
+    "cases_completed": {
+      "title": "Cases Completed",
+      "type": "integer"
+    },
+    "cases_failed": {
+      "title": "Cases Failed",
+      "type": "integer"
+    },
+    "hard_failures": {
+      "title": "Hard Failures",
+      "type": "integer"
+    },
+    "input_tokens": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Input Tokens"
+    },
+    "output_tokens": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Output Tokens"
+    },
+    "category_scores": {
+      "items": {
+        "$ref": "#/$defs/CategoryScore"
+      },
+      "title": "Category Scores",
+      "type": "array"
+    },
+    "dimension_scores": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Dimension Scores",
+      "type": "object"
+    },
+    "failure_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Failure Counts",
+      "type": "object"
+    }
+  },
+  "required": [
+    "run_id",
+    "provider",
+    "model",
+    "total_score",
+    "max_score",
+    "percentage",
+    "cases_total",
+    "cases_completed",
+    "cases_failed",
+    "hard_failures"
+  ],
+  "title": "RunSummary",
+  "type": "object"
+}

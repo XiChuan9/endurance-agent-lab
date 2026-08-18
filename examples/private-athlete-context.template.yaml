@@ -1,0 +1,126 @@
+# Copy this file into private/ before adding real data.
+# The private/ directory is intentionally ignored by Git.
+# Remove all placeholder/synthetic values that do not apply.
+schema_version: '1.0'
+as_of_date: '2026-08-18'
+athlete:
+  athlete_id: replace-with-local-private-id
+  display_name: null
+  age: 35
+  sex: unspecified
+  sport_experience_years: 3.0
+  coaching_context: Consented private coaching record. Do not commit.
+goal:
+  race_type: half_marathon
+  race_date: '2026-11-01'
+  target_seconds: 5400
+  distance_km: 21.0975
+  priority: A
+  notes: Replace with the actual goal and its rationale.
+performance_markers:
+- marker_id: PB-HM-001
+  marker_type: race
+  sport: run
+  distance_km: 21.0975
+  time_seconds: 5700
+  marker_date: '2025-11-01'
+  label: Replace with a verified comparable performance
+  conditions: Add heat, elevation, illness, or course context when relevant.
+  confidence: 1.0
+recent_training:
+  source: manual
+  completeness_note: Replace these synthetic weeks with normalized completed training.
+  weeks:
+  - week_id: W-02
+    relative_week: -2
+    start_date: '2026-08-03'
+    distance_km: 48.0
+    duration_hours: 4.5
+    sessions:
+    - session_id: W02-LR
+      session_date: '2026-08-09'
+      sport: run
+      title: Long easy run
+      intensity: easy
+      is_quality: false
+      distance_km: 18.0
+      duration_minutes: 100.0
+      avg_hr: 145.0
+      rpe: 4.0
+      completed: true
+      tags:
+      - synthetic-template
+  - week_id: W-01
+    relative_week: -1
+    start_date: '2026-08-10'
+    distance_km: 52.0
+    duration_hours: 4.9
+    sessions:
+    - session_id: W01-Q1
+      session_date: '2026-08-12'
+      sport: run
+      title: Controlled threshold
+      intensity: threshold
+      is_quality: true
+      distance_km: 12.0
+      duration_minutes: 58.0
+      avg_hr: 166.0
+      rpe: 6.0
+      completed: true
+      tags:
+      - synthetic-template
+    - session_id: W01-LR
+      session_date: '2026-08-16'
+      sport: run
+      title: Long easy run
+      intensity: easy
+      is_quality: false
+      distance_km: 19.0
+      duration_minutes: 105.0
+      avg_hr: 146.0
+      rpe: 4.0
+      completed: true
+      tags:
+      - synthetic-template
+signals:
+- signal_id: SIG-RHR-001
+  signal_type: recovery
+  key: resting_hr_delta_bpm
+  value: 1
+  unit: bpm
+  severity: normal
+  observed_date: '2026-08-18'
+  notes: Replace with the current observation or remove.
+proposed_plan:
+  plan_id: next-two-weeks
+  title: Proposed plan to audit
+  philosophy: Replace with coaching intent.
+  weeks:
+  - week_id: PW-01
+    relative_week: 1
+    start_date: '2026-08-17'
+    distance_km: 54.0
+    sessions:
+    - session_id: PW01-Q1
+      session_date: '2026-08-19'
+      sport: run
+      title: Controlled threshold
+      intensity: threshold
+      is_quality: true
+      distance_km: 12.0
+      duration_minutes: 58.0
+      tags: []
+    - session_id: PW01-LR
+      session_date: '2026-08-23'
+      sport: run
+      title: Long aerobic run
+      intensity: easy
+      is_quality: false
+      distance_km: 20.0
+      duration_minutes: 108.0
+      tags: []
+source_notes:
+- source_id: CONSENT-001
+  text: The athlete consented to private analysis. This template is synthetic.
+user_request: Audit the proposed plan and identify the most important adjustment.
+language: en

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EnduranceBench {{ summary.run_id }}</title>
+  <style>
+    :root { color-scheme: light dark; font-family: Inter, system-ui, sans-serif; }
+    body { max-width: 1120px; margin: 0 auto; padding: 2rem; line-height: 1.5; }
+    header, section { margin-bottom: 2rem; }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
+    .card { border: 1px solid #8885; border-radius: 12px; padding: 1rem; }
+    .value { font-size: 1.65rem; font-weight: 700; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border-bottom: 1px solid #8885; padding: .65rem; text-align: left; }
+    th:not(:first-child), td:not(:first-child) { text-align: right; }
+    code { font-size: .85em; }
+    .fail { font-weight: 700; }
+    footer { opacity: .75; font-size: .9rem; margin-top: 3rem; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>EnduranceBench Run</h1>
+  <p><code>{{ summary.run_id }}</code> · {{ summary.provider }}/{{ summary.model }}</p>
+</header>
+<section class="kpis">
+  <div class="card"><div>Overall</div><div class="value">{{ "%.2f"|format(summary.percentage) }}%</div></div>
+  <div class="card"><div>Cases</div><div class="value">{{ summary.cases_completed }}/{{ summary.cases_total }}</div></div>
+  <div class="card"><div>Hard failures</div><div class="value">{{ summary.hard_failures }}</div></div>
+  <div class="card"><div>Score</div><div class="value">{{ "%.1f"|format(summary.total_score) }}/{{ "%.1f"|format(summary.max_score) }}</div></div>
+</section>
+<section>
+  <h2>Reproducibility</h2>
+  <p>Benchmark <code>{{ manifest.benchmark_id }}@{{ manifest.benchmark_version }}</code>, benchmark hash <code>{{ manifest.benchmark_hash[:12] }}</code>, skill hash <code>{{ manifest.skill_hash[:12] }}</code>, git <code>{{ manifest.git_commit or "uncommitted" }}</code>.</p>
+</section>
+<section>
+  <h2>Dimensions</h2>
+  <table><thead><tr><th>Dimension</th><th>Score</th></tr></thead><tbody>
+  {% for name, value in summary.dimension_scores.items() %}
+    <tr><td>{{ name }}</td><td>{{ "%.2f"|format(value) }}%</td></tr>
+  {% endfor %}
+  </tbody></table>
+</section>
+<section>
+  <h2>Cases</h2>
+  <table><thead><tr><th>Case</th><th>Status</th><th>Score</th><th>Evidence</th><th>Hard fail</th></tr></thead><tbody>
+  {% for record in records %}
+    <tr>
+      <td>{{ record.case_id }}</td><td>{{ record.status }}</td>
+      {% if record.grade %}
+      <td>{{ "%.2f"|format(record.grade.score) }}/{{ "%.2f"|format(record.grade.max_score) }}</td>
+      <td>{{ "%.0f"|format(record.grade.valid_evidence_ratio * 100) }}%</td>
+      <td class="{{ 'fail' if record.grade.hard_fail else '' }}">{{ "yes" if record.grade.hard_fail else "no" }}</td>
+      {% else %}<td>—</td><td>—</td><td>—</td>{% endif %}
+    </tr>
+  {% endfor %}
+  </tbody></table>
+</section>
+<section>
+  <h2>Frequent misses</h2>
+  <ul>{% for code, count in summary.failure_counts.items() %}<li><code>{{ code }}</code>: {{ count }}</li>{% endfor %}</ul>
+</section>
+<footer>Training-decision research artifact; not a medical diagnosis or clinical validation.</footer>
+</body>
+</html>

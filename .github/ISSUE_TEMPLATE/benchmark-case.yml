@@ -1,0 +1,54 @@
+name: Propose a benchmark case
+description: Propose a synthetic or irreversibly de-identified EnduranceBench case.
+title: "benchmark: "
+labels: [benchmark]
+body:
+  - type: markdown
+    attributes:
+      value: Submit the decision structure, not a real athlete record. See BENCHMARK.md and docs/EXPERT_LABELING.md.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - data_quality
+        - athlete_diagnosis
+        - plan_critique
+        - goal_specificity
+        - uncertainty
+        - safety_adversarial
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision problem
+      description: What expert judgment should the case test?
+    validations:
+      required: true
+  - type: textarea
+    id: required
+    attributes:
+      label: Must-identify claims
+    validations:
+      required: true
+  - type: textarea
+    id: forbidden
+    attributes:
+      label: Forbidden or unsafe claims
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Provenance and de-identification
+      description: State whether the case is synthetic or how the source structure was irreversibly de-identified.
+    validations:
+      required: true
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Data safety
+      options:
+        - label: This proposal contains no identifiable athlete data or restricted source material.
+          required: true

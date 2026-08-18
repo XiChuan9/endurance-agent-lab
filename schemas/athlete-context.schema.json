@@ -1,0 +1,830 @@
+{
+  "$defs": {
+    "AthleteProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "athlete_id": {
+          "default": "anonymous",
+          "title": "Athlete Id",
+          "type": "string"
+        },
+        "display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Name"
+        },
+        "age": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 10,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Age"
+        },
+        "sex": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sex"
+        },
+        "sport_experience_years": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sport Experience Years"
+        },
+        "coaching_context": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Coaching Context"
+        }
+      },
+      "title": "AthleteProfile",
+      "type": "object"
+    },
+    "ContextSignal": {
+      "additionalProperties": false,
+      "properties": {
+        "signal_id": {
+          "title": "Signal Id",
+          "type": "string"
+        },
+        "signal_type": {
+          "$ref": "#/$defs/SignalType"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "severity": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Severity"
+        },
+        "observed_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed Date"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "signal_id",
+        "signal_type",
+        "key",
+        "value"
+      ],
+      "title": "ContextSignal",
+      "type": "object"
+    },
+    "Goal": {
+      "additionalProperties": false,
+      "properties": {
+        "race_type": {
+          "$ref": "#/$defs/RaceType"
+        },
+        "race_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Race Date"
+        },
+        "target_seconds": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Seconds"
+        },
+        "distance_km": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance Km"
+        },
+        "priority": {
+          "default": "A",
+          "title": "Priority",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "race_type"
+      ],
+      "title": "Goal",
+      "type": "object"
+    },
+    "Intensity": {
+      "enum": [
+        "rest",
+        "recovery",
+        "easy",
+        "steady",
+        "lt1",
+        "threshold",
+        "race_pace",
+        "vo2max",
+        "sprint",
+        "mixed",
+        "unknown"
+      ],
+      "title": "Intensity",
+      "type": "string"
+    },
+    "PerformanceMarker": {
+      "additionalProperties": false,
+      "properties": {
+        "marker_id": {
+          "title": "Marker Id",
+          "type": "string"
+        },
+        "marker_type": {
+          "default": "race",
+          "title": "Marker Type",
+          "type": "string"
+        },
+        "sport": {
+          "$ref": "#/$defs/Sport",
+          "default": "run"
+        },
+        "distance_km": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance Km"
+        },
+        "time_seconds": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Seconds"
+        },
+        "marker_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Marker Date"
+        },
+        "pace_seconds_per_km": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pace Seconds Per Km"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "conditions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conditions"
+        },
+        "confidence": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "marker_id"
+      ],
+      "title": "PerformanceMarker",
+      "type": "object"
+    },
+    "RaceType": {
+      "enum": [
+        "5k",
+        "10k",
+        "half_marathon",
+        "marathon",
+        "ultra",
+        "other"
+      ],
+      "title": "RaceType",
+      "type": "string"
+    },
+    "SignalType": {
+      "enum": [
+        "recovery",
+        "injury",
+        "weather",
+        "data",
+        "performance",
+        "constraint",
+        "user_instruction",
+        "medical",
+        "other"
+      ],
+      "title": "SignalType",
+      "type": "string"
+    },
+    "SourceNote": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "text"
+      ],
+      "title": "SourceNote",
+      "type": "object"
+    },
+    "Sport": {
+      "enum": [
+        "run",
+        "bike",
+        "swim",
+        "strength",
+        "cross_train",
+        "rest",
+        "other"
+      ],
+      "title": "Sport",
+      "type": "string"
+    },
+    "TrainingHistory": {
+      "additionalProperties": false,
+      "properties": {
+        "weeks": {
+          "items": {
+            "$ref": "#/$defs/TrainingWeek"
+          },
+          "title": "Weeks",
+          "type": "array"
+        },
+        "source": {
+          "default": "manual",
+          "title": "Source",
+          "type": "string"
+        },
+        "completeness_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Completeness Note"
+        }
+      },
+      "title": "TrainingHistory",
+      "type": "object"
+    },
+    "TrainingPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "plan_id": {
+          "default": "proposed-plan",
+          "title": "Plan Id",
+          "type": "string"
+        },
+        "title": {
+          "default": "Proposed training plan",
+          "title": "Title",
+          "type": "string"
+        },
+        "weeks": {
+          "items": {
+            "$ref": "#/$defs/TrainingWeek"
+          },
+          "title": "Weeks",
+          "type": "array"
+        },
+        "philosophy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Philosophy"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "title": "TrainingPlan",
+      "type": "object"
+    },
+    "TrainingSession": {
+      "additionalProperties": false,
+      "properties": {
+        "session_id": {
+          "title": "Session Id",
+          "type": "string"
+        },
+        "session_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Session Date"
+        },
+        "sport": {
+          "$ref": "#/$defs/Sport",
+          "default": "run"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "intensity": {
+          "$ref": "#/$defs/Intensity",
+          "default": "unknown"
+        },
+        "is_quality": {
+          "default": false,
+          "title": "Is Quality",
+          "type": "boolean"
+        },
+        "distance_km": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance Km"
+        },
+        "duration_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Minutes"
+        },
+        "pace_seconds_per_km": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pace Seconds Per Km"
+        },
+        "avg_hr": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Avg Hr"
+        },
+        "max_hr": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Hr"
+        },
+        "rpe": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rpe"
+        },
+        "elevation_m": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Elevation M"
+        },
+        "completed": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Completed"
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "session_id",
+        "title"
+      ],
+      "title": "TrainingSession",
+      "type": "object"
+    },
+    "TrainingWeek": {
+      "additionalProperties": false,
+      "properties": {
+        "week_id": {
+          "title": "Week Id",
+          "type": "string"
+        },
+        "relative_week": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Relative Week"
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start Date"
+        },
+        "distance_km": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distance Km"
+        },
+        "duration_hours": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration Hours"
+        },
+        "sessions": {
+          "items": {
+            "$ref": "#/$defs/TrainingSession"
+          },
+          "title": "Sessions",
+          "type": "array"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "required": [
+        "week_id"
+      ],
+      "title": "TrainingWeek",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "as_of_date": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of Date"
+    },
+    "athlete": {
+      "$ref": "#/$defs/AthleteProfile"
+    },
+    "goal": {
+      "$ref": "#/$defs/Goal"
+    },
+    "performance_markers": {
+      "items": {
+        "$ref": "#/$defs/PerformanceMarker"
+      },
+      "title": "Performance Markers",
+      "type": "array"
+    },
+    "recent_training": {
+      "$ref": "#/$defs/TrainingHistory"
+    },
+    "signals": {
+      "items": {
+        "$ref": "#/$defs/ContextSignal"
+      },
+      "title": "Signals",
+      "type": "array"
+    },
+    "proposed_plan": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TrainingPlan"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "source_notes": {
+      "items": {
+        "$ref": "#/$defs/SourceNote"
+      },
+      "title": "Source Notes",
+      "type": "array"
+    },
+    "user_request": {
+      "default": "Audit the proposed training plan.",
+      "title": "User Request",
+      "type": "string"
+    },
+    "language": {
+      "default": "en",
+      "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$",
+      "title": "Language",
+      "type": "string"
+    }
+  },
+  "required": [
+    "athlete",
+    "goal"
+  ],
+  "title": "AthleteContext",
+  "type": "object"
+}

@@ -1,0 +1,535 @@
+schema_version: '1.0'
+case_id: END-015
+title: Recognize globally incoherent accumulation of good sessions
+category: plan_critique
+difficulty: medium
+tags:
+- global-coherence
+- intensity
+public_origin: synthetic-expert-authored
+context:
+  schema_version: '1.0'
+  as_of_date: '2026-08-18'
+  athlete:
+    athlete_id: anonymous
+    age: 34
+    sex: male
+    sport_experience_years: 6.0
+  goal:
+    race_type: half_marathon
+    race_date: '2026-11-01'
+    target_seconds: 5400
+    distance_km: 21.0975
+    priority: A
+  performance_markers:
+  - marker_id: PB-1
+    marker_type: race
+    sport: run
+    distance_km: 21.0975
+    time_seconds: 5300
+    marker_date: '2025-10-01'
+    pace_seconds_per_km: 251.21459888612395
+    label: Historical PB
+    confidence: 1.0
+  recent_training:
+    weeks:
+    - week_id: W-01
+      relative_week: -8
+      start_date: '2026-06-23'
+      distance_km: 65.0
+      duration_hours: 4.45
+      sessions:
+      - session_id: H01-E1
+        session_date: '2026-06-24'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H01-Q1
+        session_date: '2026-06-26'
+        sport: run
+        title: Controlled threshold
+        intensity: threshold
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 58.0
+        pace_seconds_per_km: 290.0
+        avg_hr: 168.0
+        tags: []
+      - session_id: H01-E2
+        session_date: '2026-06-28'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H01-L1
+        session_date: '2026-06-29'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    - week_id: W-02
+      relative_week: -7
+      start_date: '2026-06-30'
+      distance_km: 68.0
+      duration_hours: 3.483
+      sessions:
+      - session_id: H02-E1
+        session_date: '2026-07-01'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H02-E2
+        session_date: '2026-07-05'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H02-L1
+        session_date: '2026-07-06'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    - week_id: W-03
+      relative_week: -6
+      start_date: '2026-07-07'
+      distance_km: 70.0
+      duration_hours: 4.45
+      sessions:
+      - session_id: H03-E1
+        session_date: '2026-07-08'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H03-Q1
+        session_date: '2026-07-10'
+        sport: run
+        title: Controlled threshold
+        intensity: threshold
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 58.0
+        pace_seconds_per_km: 290.0
+        avg_hr: 168.0
+        tags: []
+      - session_id: H03-E2
+        session_date: '2026-07-12'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H03-L1
+        session_date: '2026-07-13'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    - week_id: W-04
+      relative_week: -5
+      start_date: '2026-07-14'
+      distance_km: 72.0
+      duration_hours: 3.483
+      sessions:
+      - session_id: H04-E1
+        session_date: '2026-07-15'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H04-E2
+        session_date: '2026-07-19'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H04-L1
+        session_date: '2026-07-20'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    - week_id: W-05
+      relative_week: -4
+      start_date: '2026-07-21'
+      distance_km: 74.0
+      duration_hours: 4.45
+      sessions:
+      - session_id: H05-E1
+        session_date: '2026-07-22'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H05-Q1
+        session_date: '2026-07-24'
+        sport: run
+        title: Controlled threshold
+        intensity: threshold
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 58.0
+        pace_seconds_per_km: 290.0
+        avg_hr: 168.0
+        tags: []
+      - session_id: H05-E2
+        session_date: '2026-07-26'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H05-L1
+        session_date: '2026-07-27'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    - week_id: W-06
+      relative_week: -3
+      start_date: '2026-07-28'
+      distance_km: 72.0
+      duration_hours: 3.483
+      sessions:
+      - session_id: H06-E1
+        session_date: '2026-07-29'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H06-E2
+        session_date: '2026-08-02'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H06-L1
+        session_date: '2026-08-03'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    - week_id: W-07
+      relative_week: -2
+      start_date: '2026-08-04'
+      distance_km: 76.0
+      duration_hours: 4.45
+      sessions:
+      - session_id: H07-E1
+        session_date: '2026-08-05'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H07-Q1
+        session_date: '2026-08-07'
+        sport: run
+        title: Controlled threshold
+        intensity: threshold
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 58.0
+        pace_seconds_per_km: 290.0
+        avg_hr: 168.0
+        tags: []
+      - session_id: H07-E2
+        session_date: '2026-08-09'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H07-L1
+        session_date: '2026-08-10'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    - week_id: W-08
+      relative_week: -1
+      start_date: '2026-08-11'
+      distance_km: 74.0
+      duration_hours: 3.483
+      sessions:
+      - session_id: H08-E1
+        session_date: '2026-08-12'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 142.0
+        tags: []
+      - session_id: H08-E2
+        session_date: '2026-08-16'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        avg_hr: 140.0
+        tags: []
+      - session_id: H08-L1
+        session_date: '2026-08-17'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 21.0
+        duration_minutes: 105.0
+        pace_seconds_per_km: 300.0
+        avg_hr: 148.0
+        tags: []
+    source: synthetic-benchmark
+  signals: []
+  proposed_plan:
+    plan_id: plan-v1
+    title: Proposed plan
+    weeks:
+    - week_id: PW-01
+      relative_week: 1
+      start_date: '2026-08-24'
+      distance_km: 72.0
+      duration_hours: 6.867
+      sessions:
+      - session_id: P01-E1
+        session_date: '2026-08-24'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        tags: []
+      - session_id: P01-L1
+        session_date: '2026-08-30'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 24.0
+        duration_minutes: 120.0
+        pace_seconds_per_km: 300.0
+        tags: []
+      - session_id: P15-Q0
+        session_date: '2026-08-25'
+        sport: run
+        title: Hills
+        intensity: mixed
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 60.0
+        pace_seconds_per_km: 300.0
+        tags: []
+      - session_id: P15-Q1
+        session_date: '2026-08-26'
+        sport: run
+        title: Threshold
+        intensity: threshold
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 60.0
+        pace_seconds_per_km: 300.0
+        tags: []
+      - session_id: P15-Q2
+        session_date: '2026-08-28'
+        sport: run
+        title: Race pace
+        intensity: race_pace
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 60.0
+        pace_seconds_per_km: 300.0
+        tags: []
+      - session_id: P15-Q3
+        session_date: '2026-08-29'
+        sport: run
+        title: VO2
+        intensity: vo2max
+        is_quality: true
+        distance_km: 12.0
+        duration_minutes: 60.0
+        pace_seconds_per_km: 300.0
+        tags: []
+    - week_id: PW-02
+      relative_week: 2
+      start_date: '2026-08-31'
+      distance_km: 76.0
+      duration_hours: 2.867
+      sessions:
+      - session_id: P02-E1
+        session_date: '2026-08-31'
+        sport: run
+        title: Easy run
+        intensity: easy
+        is_quality: false
+        distance_km: 10.0
+        duration_minutes: 52.0
+        pace_seconds_per_km: 312.0
+        tags: []
+      - session_id: P02-L1
+        session_date: '2026-09-06'
+        sport: run
+        title: Long aerobic run
+        intensity: easy
+        is_quality: false
+        distance_km: 24.0
+        duration_minutes: 120.0
+        pace_seconds_per_km: 300.0
+        tags: []
+  source_notes: []
+  user_request: Audit the proposed training plan.
+  language: en
+rubric:
+  dimensions:
+    diagnosis:
+      max_points: 5.0
+      required_codes: []
+      optional_codes: []
+      forbidden_codes: []
+    plan_reasoning:
+      max_points: 5.0
+      required_codes:
+      - PLAN_TOO_MANY_PRIORITIES
+      - PLAN_TOO_MUCH_INTENSITY
+      - PLAN_INTENSITY_CLUSTER
+      optional_codes: []
+      forbidden_codes: []
+    evidence_grounding:
+      max_points: 3.0
+      required_codes: []
+      optional_codes: []
+      forbidden_codes: []
+    uncertainty:
+      max_points: 2.0
+      required_codes:
+      - UNCERTAINTY_LT1_LT2
+      optional_codes: []
+      forbidden_codes: []
+    safety:
+      max_points: 3.0
+      required_codes: []
+      optional_codes: []
+      forbidden_codes: []
+    instruction_schema:
+      max_points: 2.0
+      required_codes:
+      - HAS_CLAIMS
+      - HAS_GOAL_ANALYSIS
+      - HAS_OVERALL_ASSESSMENT
+      - HAS_UNCERTAINTY
+      optional_codes: []
+      forbidden_codes: []
+  hard_fail_if: []
+  minimum_valid_evidence_ratio: 0.7
+  expert_notes: Recognize globally incoherent accumulation of good sessions

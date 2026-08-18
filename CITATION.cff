@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use Endurance Agent Lab or EnduranceBench in research or evaluation, please cite this software release."
+title: "Endurance Agent Lab"
+type: software
+version: 0.1.0
+date-released: 2026-08-18
+authors:
+  - family-names: "XiChuan9"
+repository-code: "https://github.com/XiChuan9/endurance-agent-lab"
+url: "https://github.com/XiChuan9/endurance-agent-lab"
+license: Apache-2.0
+keywords:
+  - endurance training
+  - agent evaluation
+  - benchmark
+  - AI coaching
+  - reproducibility
+abstract: >-
+  An open-source evaluation and engineering framework for reliable AI endurance-coaching
+  agents, built from expert-labeled cases, reusable skills, deterministic tools,
+  longitudinal athlete scenarios, and reproducible model evaluations.

@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+build/
+dist/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+
+# Private athlete data and generated runs
+private/
+runs/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Generated scratch files
+schemas/*.generated.json

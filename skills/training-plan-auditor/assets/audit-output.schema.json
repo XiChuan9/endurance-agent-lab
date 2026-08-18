@@ -1,0 +1,581 @@
+{
+  "$defs": {
+    "AuditClaim": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "pattern": "^[A-Z][A-Z0-9_]{2,79}$",
+          "title": "Code",
+          "type": "string"
+        },
+        "category": {
+          "$ref": "#/$defs/ClaimCategory"
+        },
+        "stance": {
+          "$ref": "#/$defs/ClaimStance",
+          "default": "supports"
+        },
+        "priority": {
+          "$ref": "#/$defs/Priority",
+          "default": "supporting"
+        },
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        },
+        "evidence_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence References",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "code",
+        "category",
+        "statement",
+        "confidence"
+      ],
+      "title": "AuditClaim",
+      "type": "object"
+    },
+    "CapabilityAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "title": "Capability",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/CapabilityStatus"
+        },
+        "evidence_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence References",
+          "type": "array"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "capability",
+        "status",
+        "rationale",
+        "confidence"
+      ],
+      "title": "CapabilityAssessment",
+      "type": "object"
+    },
+    "CapabilityStatus": {
+      "enum": [
+        "strong",
+        "adequate",
+        "developing",
+        "weak",
+        "rebuilding",
+        "unknown"
+      ],
+      "title": "CapabilityStatus",
+      "type": "string"
+    },
+    "ClaimCategory": {
+      "enum": [
+        "data_quality",
+        "athlete_state",
+        "goal",
+        "limiter",
+        "plan",
+        "safety",
+        "uncertainty"
+      ],
+      "title": "ClaimCategory",
+      "type": "string"
+    },
+    "ClaimStance": {
+      "enum": [
+        "supports",
+        "rejects",
+        "uncertain"
+      ],
+      "title": "ClaimStance",
+      "type": "string"
+    },
+    "DataQualityAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "completeness": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Completeness",
+          "type": "number"
+        },
+        "issues": {
+          "items": {
+            "$ref": "#/$defs/DataQualityIssue"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "missing_information": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Information",
+          "type": "array"
+        },
+        "cannot_infer": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cannot Infer",
+          "type": "array"
+        }
+      },
+      "required": [
+        "completeness"
+      ],
+      "title": "DataQualityAssessment",
+      "type": "object"
+    },
+    "DataQualityIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_code": {
+          "title": "Claim Code",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence References",
+          "type": "array"
+        },
+        "remediation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Remediation"
+        }
+      },
+      "required": [
+        "claim_code",
+        "severity",
+        "description"
+      ],
+      "title": "DataQualityIssue",
+      "type": "object"
+    },
+    "Feasibility": {
+      "enum": [
+        "conservative",
+        "realistic",
+        "stretch",
+        "unrealistic",
+        "return_to_form",
+        "unknown"
+      ],
+      "title": "Feasibility",
+      "type": "string"
+    },
+    "GoalAnalysis": {
+      "additionalProperties": false,
+      "properties": {
+        "target_pace_seconds_per_km": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target Pace Seconds Per Km"
+        },
+        "relation_to_history": {
+          "title": "Relation To History",
+          "type": "string"
+        },
+        "feasibility": {
+          "$ref": "#/$defs/Feasibility"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "evidence_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence References",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "relation_to_history",
+        "feasibility",
+        "rationale",
+        "confidence"
+      ],
+      "title": "GoalAnalysis",
+      "type": "object"
+    },
+    "LimiterAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "limiter": {
+          "title": "Limiter",
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/$defs/Priority"
+        },
+        "status": {
+          "$ref": "#/$defs/CapabilityStatus"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "evidence_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence References",
+          "type": "array"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "limiter",
+        "priority",
+        "status",
+        "rationale",
+        "confidence"
+      ],
+      "title": "LimiterAssessment",
+      "type": "object"
+    },
+    "OverallAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "verdict": {
+          "$ref": "#/$defs/OverallVerdict"
+        },
+        "risk_level": {
+          "$ref": "#/$defs/RiskLevel"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "hard_stop_recommended": {
+          "default": false,
+          "title": "Hard Stop Recommended",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "verdict",
+        "risk_level",
+        "summary",
+        "confidence"
+      ],
+      "title": "OverallAssessment",
+      "type": "object"
+    },
+    "OverallVerdict": {
+      "enum": [
+        "approve",
+        "approve_with_changes",
+        "revise",
+        "hold",
+        "insufficient_data"
+      ],
+      "title": "OverallVerdict",
+      "type": "string"
+    },
+    "PlanFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_code": {
+          "title": "Claim Code",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "finding": {
+          "title": "Finding",
+          "type": "string"
+        },
+        "evidence_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence References",
+          "type": "array"
+        },
+        "consequence": {
+          "title": "Consequence",
+          "type": "string"
+        },
+        "recommendation": {
+          "title": "Recommendation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "claim_code",
+        "category",
+        "severity",
+        "finding",
+        "consequence",
+        "recommendation"
+      ],
+      "title": "PlanFinding",
+      "type": "object"
+    },
+    "Priority": {
+      "enum": [
+        "primary",
+        "secondary",
+        "supporting",
+        "not_priority",
+        "unknown"
+      ],
+      "title": "Priority",
+      "type": "string"
+    },
+    "RecommendationAction": {
+      "enum": [
+        "keep",
+        "modify",
+        "remove",
+        "add",
+        "hold",
+        "escalate"
+      ],
+      "title": "RecommendationAction",
+      "type": "string"
+    },
+    "RecommendedChange": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/RecommendationAction"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "evidence_references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence References",
+          "type": "array"
+        },
+        "priority": {
+          "$ref": "#/$defs/Priority",
+          "default": "supporting"
+        }
+      },
+      "required": [
+        "action",
+        "target",
+        "rationale"
+      ],
+      "title": "RecommendedChange",
+      "type": "object"
+    },
+    "RiskLevel": {
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "critical"
+      ],
+      "title": "RiskLevel",
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "UncertaintyAssessment": {
+      "additionalProperties": false,
+      "properties": {
+        "missing_information": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Information",
+          "type": "array"
+        },
+        "conclusions_affected": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Conclusions Affected",
+          "type": "array"
+        },
+        "should_not_infer": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Should Not Infer",
+          "type": "array"
+        },
+        "follow_up_data": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Follow Up Data",
+          "type": "array"
+        }
+      },
+      "title": "UncertaintyAssessment",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "case_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Case Id"
+    },
+    "data_quality": {
+      "$ref": "#/$defs/DataQualityAssessment"
+    },
+    "athlete_state": {
+      "items": {
+        "$ref": "#/$defs/CapabilityAssessment"
+      },
+      "title": "Athlete State",
+      "type": "array"
+    },
+    "goal_analysis": {
+      "$ref": "#/$defs/GoalAnalysis"
+    },
+    "limiters": {
+      "items": {
+        "$ref": "#/$defs/LimiterAssessment"
+      },
+      "title": "Limiters",
+      "type": "array"
+    },
+    "plan_findings": {
+      "items": {
+        "$ref": "#/$defs/PlanFinding"
+      },
+      "title": "Plan Findings",
+      "type": "array"
+    },
+    "recommended_changes": {
+      "items": {
+        "$ref": "#/$defs/RecommendedChange"
+      },
+      "title": "Recommended Changes",
+      "type": "array"
+    },
+    "uncertainty": {
+      "$ref": "#/$defs/UncertaintyAssessment"
+    },
+    "claims": {
+      "items": {
+        "$ref": "#/$defs/AuditClaim"
+      },
+      "title": "Claims",
+      "type": "array"
+    },
+    "overall_assessment": {
+      "$ref": "#/$defs/OverallAssessment"
+    }
+  },
+  "required": [
+    "data_quality",
+    "goal_analysis",
+    "uncertainty",
+    "overall_assessment"
+  ],
+  "title": "AuditOutput",
+  "type": "object"
+}
