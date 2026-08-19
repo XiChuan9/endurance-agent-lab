@@ -5,7 +5,7 @@ from copy import deepcopy
 from endurance_agent_lab.analytics import derive_metrics
 from endurance_agent_lab.graders import grade_case
 from endurance_agent_lab.models.audit import AuditClaim
-from endurance_agent_lab.models.common import ClaimCategory, Priority
+from endurance_agent_lab.models.common import ClaimCategory, Priority, Sport
 from endurance_agent_lab.providers import RuleBasedProvider
 
 
@@ -65,3 +65,15 @@ def test_all_30_cases_pass_transparent_regression_oracle(benchmark, skill) -> No
     assert all(grade.passed for grade in grades)
     assert all(not grade.hard_fail for grade in grades)
     assert sum(grade.score for grade in grades) == sum(grade.max_score for grade in grades)
+
+
+def test_undated_strength_session_is_excluded_from_date_subtraction(benchmark, skill) -> None:
+    case = deepcopy(benchmark.by_id("END-013"))
+    assert case.context.proposed_plan is not None
+    strength = case.context.proposed_plan.weeks[0].sessions[0]
+    strength.sport = Sport.STRENGTH
+    strength.session_date = None
+
+    result = RuleBasedProvider().audit(case, skill, derive_metrics(case.context))
+
+    assert "PLAN_STRENGTH_BEFORE_KEY" not in {claim.code for claim in result.audit.claims}

@@ -15,6 +15,8 @@ def test_openai_adapter_parses_versioned_audit_contract(benchmark, skill, monkey
     class FakeResponses:
         def parse(self, **kwargs):
             assert kwargs["model"] == "gpt-test"
+            assert kwargs["reasoning"] == {"effort": "medium"}
+            assert [item["role"] for item in kwargs["input"]] == ["system", "user"]
             assert kwargs["text_format"].__name__ == "AuditOutput"
             return SimpleNamespace(
                 id="resp_test",
