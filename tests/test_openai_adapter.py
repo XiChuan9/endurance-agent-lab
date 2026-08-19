@@ -7,9 +7,7 @@ from endurance_agent_lab.analytics import derive_metrics
 from endurance_agent_lab.providers import OpenAIProvider, RuleBasedProvider
 
 
-def test_openai_adapter_parses_versioned_audit_contract(
-    benchmark, skill, monkeypatch
-) -> None:
+def test_openai_adapter_parses_versioned_audit_contract(benchmark, skill, monkeypatch) -> None:
     case = benchmark.by_id("END-016")
     derived = derive_metrics(case.context)
     expected = RuleBasedProvider().audit(case, skill, derived).audit
@@ -17,6 +15,8 @@ def test_openai_adapter_parses_versioned_audit_contract(
     class FakeResponses:
         def parse(self, **kwargs):
             assert kwargs["model"] == "gpt-test"
+            assert kwargs["reasoning"] == {"effort": "medium"}
+            assert [item["role"] for item in kwargs["input"]] == ["system", "user"]
             assert kwargs["text_format"].__name__ == "AuditOutput"
             return SimpleNamespace(
                 id="resp_test",

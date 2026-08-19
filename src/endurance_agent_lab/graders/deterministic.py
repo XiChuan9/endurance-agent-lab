@@ -88,9 +88,7 @@ def _grade_code_dimension(
         optional_ratio = 1.0
         optional_share = 0.0
 
-    score = rubric.max_points * (
-        required_share * required_ratio + optional_share * optional_ratio
-    )
+    score = rubric.max_points * (required_share * required_ratio + optional_share * optional_ratio)
     if forbidden_hits:
         score -= rubric.max_points * min(1.0, 0.5 * len(forbidden_hits))
     notes: list[str] = []

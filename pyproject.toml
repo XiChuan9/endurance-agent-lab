@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "endurance-agent-lab"
-version = "0.1.0"
+version = "0.1.1"
 description = "Open-source evaluation and engineering framework for reliable AI endurance-coaching agents."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -46,6 +46,7 @@ openai = ["openai>=1.99,<3"]
 dev = [
   "build>=1.5,<2",
   "mypy>=2.0,<3",
+  "openai>=1.99,<3",
   "pre-commit>=4.6,<5",
   "pytest>=8,<10",
   "pytest-cov>=6,<8",

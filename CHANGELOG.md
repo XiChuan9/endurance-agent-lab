@@ -2,6 +2,15 @@
 
 All notable changes follow Keep a Changelog. The project uses Semantic Versioning.
 
+## [0.1.1] - 2026-08-19
+
+### Fixed
+
+- Included the optional OpenAI SDK in development and CI installations so the adapter is checked by strict mypy without making it a core runtime dependency.
+- Resolved Ruff lint and formatting findings with behavior-preserving standard-library and annotation updates.
+- Added explicit type narrowing for Markdown rendering, optional training dates, CLI context loading, schema model exports, and the OpenAI reasoning request.
+- Added focused regressions for those quality-gate paths while preserving the 30/30 deterministic benchmark baseline.
+
 ## [0.1.0] - 2026-08-18
 
 ### Added

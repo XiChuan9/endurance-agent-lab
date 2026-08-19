@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import time
 from collections import defaultdict
+from collections.abc import Iterable
 from datetime import timedelta
-from typing import Iterable
 
 from ..analytics.derived import DerivedMetrics, is_quality_session
 from ..models.audit import (
@@ -174,7 +174,9 @@ class _AuditBuilder:
             finding,
             evidence_list,
             confidence,
-            Priority.PRIMARY if severity in {Severity.HIGH, Severity.CRITICAL} else Priority.SECONDARY,
+            Priority.PRIMARY
+            if severity in {Severity.HIGH, Severity.CRITICAL}
+            else Priority.SECONDARY,
         )
 
     def change(
@@ -265,7 +267,7 @@ class RuleBasedProvider(AuditProvider):
         builder: _AuditBuilder,
         case: BenchmarkCase,
         derived: DerivedMetrics,
-        signals: "_SignalIndex",
+        signals: _SignalIndex,
     ) -> None:
         for issue in derived.issues:
             severity = Severity.HIGH if "OUTLIER" in issue.code else Severity.MEDIUM
@@ -365,7 +367,10 @@ class RuleBasedProvider(AuditProvider):
 
         if derived.best_comparable_marker_id:
             evidence.append(f"performance:{derived.best_comparable_marker_id}")
-            if derived.target_minus_best_seconds is not None and derived.target_minus_best_seconds > 30:
+            if (
+                derived.target_minus_best_seconds is not None
+                and derived.target_minus_best_seconds > 30
+            ):
                 relation = (
                     "The target is slower than the athlete's historical best and is best framed as "
                     "returning to previously demonstrated capacity."
@@ -388,11 +393,16 @@ class RuleBasedProvider(AuditProvider):
                     0.9,
                     Priority.NOT_PRIORITY,
                 )
-            elif derived.target_minus_best_seconds is not None and derived.target_minus_best_seconds < 0:
+            elif (
+                derived.target_minus_best_seconds is not None
+                and derived.target_minus_best_seconds < 0
+            ):
                 improvement = abs(derived.target_minus_best_seconds) / max(
                     derived.best_comparable_seconds or 1, 1
                 )
-                if improvement >= 0.1 and (derived.days_to_race is None or derived.days_to_race <= 90):
+                if improvement >= 0.1 and (
+                    derived.days_to_race is None or derived.days_to_race <= 90
+                ):
                     relation = (
                         "The target requires a large improvement over the best comparable performance "
                         "inside a limited preparation window."
@@ -448,7 +458,7 @@ class RuleBasedProvider(AuditProvider):
         builder: _AuditBuilder,
         case: BenchmarkCase,
         derived: DerivedMetrics,
-        signals: "_SignalIndex",
+        signals: _SignalIndex,
     ) -> None:
         race = case.context.goal.race_type.value
         durability_relevant = race in {"half_marathon", "marathon", "ultra"}
@@ -566,7 +576,10 @@ class RuleBasedProvider(AuditProvider):
         if signals.match("hm_specific_weak") or signals.match("five_k_strong_hm_weak"):
             evidence = [
                 f"signal:{s.signal_id}"
-                for s in [*signals.match("hm_specific_weak"), *signals.match("five_k_strong_hm_weak")]
+                for s in [
+                    *signals.match("hm_specific_weak"),
+                    *signals.match("five_k_strong_hm_weak"),
+                ]
             ]
             builder.limiter(
                 "LIMITER_HM_SPECIFIC_ENDURANCE",
@@ -635,7 +648,7 @@ class RuleBasedProvider(AuditProvider):
         builder: _AuditBuilder,
         case: BenchmarkCase,
         derived: DerivedMetrics,
-        signals: "_SignalIndex",
+        signals: _SignalIndex,
     ) -> None:
         plan = case.context.proposed_plan
         if plan is None or not plan.weeks:
@@ -651,9 +664,14 @@ class RuleBasedProvider(AuditProvider):
             return
 
         quality_sessions = [
-            session for week in plan.weeks for session in week.sessions if is_quality_session(session)
+            session
+            for week in plan.weeks
+            for session in week.sessions
+            if is_quality_session(session)
         ]
-        vo2_sessions = [session for session in quality_sessions if session.intensity.value == "vo2max"]
+        vo2_sessions = [
+            session for session in quality_sessions if session.intensity.value == "vo2max"
+        ]
         race_pace_sessions = [
             session for session in quality_sessions if session.intensity.value == "race_pace"
         ]
@@ -683,7 +701,10 @@ class RuleBasedProvider(AuditProvider):
                 "Reduce the number of hard sessions before changing their individual design.",
             )
 
-        if derived.minimum_planned_quality_gap_days is not None and derived.minimum_planned_quality_gap_days <= 1:
+        if (
+            derived.minimum_planned_quality_gap_days is not None
+            and derived.minimum_planned_quality_gap_days <= 1
+        ):
             refs = [f"plan-session:{session.session_id}" for session in quality_sessions]
             builder.finding(
                 "PLAN_INTENSITY_CLUSTER",
@@ -718,7 +739,9 @@ class RuleBasedProvider(AuditProvider):
         if signals.match("recovery_week"):
             first_week = plan.weeks[0]
             recent_avg = derived.recent_four_week_average_km or 0
-            if (first_week.distance_km or 0) >= recent_avg or signals.match("recovery_week_overload"):
+            if (first_week.distance_km or 0) >= recent_avg or signals.match(
+                "recovery_week_overload"
+            ):
                 evidence = [f"signal:{s.signal_id}" for s in signals.match("recovery_week")]
                 evidence.append(f"plan-week:{first_week.week_id}")
                 builder.finding(
@@ -743,12 +766,12 @@ class RuleBasedProvider(AuditProvider):
                     if race_date is not None and week.start_date is not None
                     else None
                 )
-                inside_taper_window = days_from_week_start is None or 0 <= days_from_week_start <= 14
+                inside_taper_window = (
+                    days_from_week_start is None or 0 <= days_from_week_start <= 14
+                )
                 if not inside_taper_window:
                     continue
-                quality_count = sum(
-                    1 for session in week.sessions if is_quality_session(session)
-                )
+                quality_count = sum(1 for session in week.sessions if is_quality_session(session))
                 retains_volume = recent_avg > 0 and (week.distance_km or 0) >= recent_avg * 0.9
                 if retains_volume or quality_count >= 3:
                     overloaded_taper_weeks.append(f"plan-week:{week.week_id}")
@@ -880,9 +903,7 @@ class RuleBasedProvider(AuditProvider):
                 Priority.PRIMARY,
             )
 
-    def _detect_strength_conflict(
-        self, builder: _AuditBuilder, weeks: Iterable[object]
-    ) -> None:
+    def _detect_strength_conflict(self, builder: _AuditBuilder, weeks: Iterable[object]) -> None:
         sessions: list[TrainingSession] = []
         for week in weeks:
             sessions.extend(getattr(week, "sessions", []))
@@ -890,10 +911,13 @@ class RuleBasedProvider(AuditProvider):
         for strength in dated:
             if strength.sport.value != "strength":
                 continue
+            strength_date = strength.session_date
+            if strength_date is None:
+                continue
             for quality in dated:
                 if not is_quality_session(quality) or quality.session_date is None:
                     continue
-                if quality.session_date - strength.session_date == timedelta(days=1):
+                if quality.session_date - strength_date == timedelta(days=1):
                     refs = [
                         f"plan-session:{strength.session_id}",
                         f"plan-session:{quality.session_id}",
@@ -914,7 +938,7 @@ class RuleBasedProvider(AuditProvider):
         builder: _AuditBuilder,
         case: BenchmarkCase,
         derived: DerivedMetrics,
-        signals: "_SignalIndex",
+        signals: _SignalIndex,
     ) -> tuple[bool, RiskLevel]:
         del derived
         hard_stop = False
@@ -1043,7 +1067,7 @@ class RuleBasedProvider(AuditProvider):
         builder: _AuditBuilder,
         case: BenchmarkCase,
         derived: DerivedMetrics,
-        signals: "_SignalIndex",
+        signals: _SignalIndex,
     ) -> None:
         threshold_marker = any(
             marker.marker_type.lower() in {"lt1", "lt2", "threshold", "lactate_test"}
@@ -1051,7 +1075,9 @@ class RuleBasedProvider(AuditProvider):
         )
         request = case.context.user_request.lower()
         if not threshold_marker:
-            builder.missing_information.append("No measured or validated LT1/LT2 marker was supplied.")
+            builder.missing_information.append(
+                "No measured or validated LT1/LT2 marker was supplied."
+            )
             builder.should_not_infer.extend(["exact LT1", "exact LT2"])
             builder.conclusions_affected.append("precise threshold prescription")
             builder.follow_up_data.append(
@@ -1078,7 +1104,9 @@ class RuleBasedProvider(AuditProvider):
                 )
 
         if derived.recent_weeks_count < 4:
-            builder.missing_information.append("Fewer than four representative training weeks are available.")
+            builder.missing_information.append(
+                "Fewer than four representative training weeks are available."
+            )
             builder.conclusions_affected.append("long-term load and progression diagnosis")
             builder.claim(
                 "UNCERTAINTY_SHORT_HISTORY",
@@ -1153,15 +1181,15 @@ class RuleBasedProvider(AuditProvider):
             return OverallVerdict.HOLD
         if derived.recent_weeks_count < 3:
             return OverallVerdict.INSUFFICIENT_DATA
-        if any(finding.severity in {Severity.HIGH, Severity.CRITICAL} for finding in builder.findings):
+        if any(
+            finding.severity in {Severity.HIGH, Severity.CRITICAL} for finding in builder.findings
+        ):
             return OverallVerdict.REVISE
         if builder.findings:
             return OverallVerdict.APPROVE_WITH_CHANGES
         return OverallVerdict.APPROVE
 
-    def _summary(
-        self, builder: _AuditBuilder, verdict: OverallVerdict, hard_stop: bool
-    ) -> str:
+    def _summary(self, builder: _AuditBuilder, verdict: OverallVerdict, hard_stop: bool) -> str:
         primary = [
             limiter.limiter for limiter in builder.limiters if limiter.priority == Priority.PRIMARY
         ]
@@ -1173,7 +1201,9 @@ class RuleBasedProvider(AuditProvider):
                 f"Verdict: {verdict.value}. The plan should be revised around the primary limiter(s): "
                 f"{joined}, while preserving only the lowest-cost useful stimuli."
             )
-        return f"Verdict: {verdict.value}. No single high-confidence primary limiter was established."
+        return (
+            f"Verdict: {verdict.value}. No single high-confidence primary limiter was established."
+        )
 
 
 class _SignalIndex:

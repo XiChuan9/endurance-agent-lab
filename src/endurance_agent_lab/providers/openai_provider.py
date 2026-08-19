@@ -3,7 +3,10 @@ from __future__ import annotations
 import json
 import os
 import time
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
+
+if TYPE_CHECKING:
+    from openai.types.shared_params import Reasoning
 
 from ..analytics.derived import DerivedMetrics
 from ..models.audit import AuditOutput
@@ -39,9 +42,7 @@ class OpenAIProvider(AuditProvider):
         try:
             from openai import OpenAI
         except ImportError as exc:
-            raise ProviderError(
-                'The OpenAI provider requires: pip install -e ".[openai]"'
-            ) from exc
+            raise ProviderError('The OpenAI provider requires: pip install -e ".[openai]"') from exc
 
         client = OpenAI(
             timeout=self.timeout_seconds,
@@ -62,9 +63,10 @@ class OpenAIProvider(AuditProvider):
         }
         started = time.perf_counter()
         try:
+            reasoning = cast("Reasoning", {"effort": self.reasoning_effort})
             response = client.responses.parse(
                 model=self.model,
-                reasoning={"effort": self.reasoning_effort},
+                reasoning=reasoning,
                 input=[
                     {"role": "system", "content": system_prompt},
                     {

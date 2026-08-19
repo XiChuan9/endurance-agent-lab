@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import math
 import statistics
+from collections.abc import Iterable
 from datetime import date
-from typing import Iterable
+from itertools import pairwise
 
 from pydantic import Field
 
@@ -82,7 +83,7 @@ def _coefficient_of_variation(values: list[float]) -> float | None:
 
 def _max_increase_ratio(values: list[float]) -> float | None:
     increases: list[float] = []
-    for previous, current in zip(values, values[1:], strict=False):
+    for previous, current in pairwise(values):
         if previous > 0 and current > previous:
             increases.append((current - previous) / previous)
     return max(increases) if increases else 0.0 if len(values) >= 2 else None
@@ -105,7 +106,7 @@ def _minimum_quality_gap_days(weeks: list[TrainingWeek]) -> int | None:
     )
     if len(dated) < 2:
         return None
-    return min((later - earlier).days for earlier, later in zip(dated, dated[1:], strict=False))
+    return min((later - earlier).days for earlier, later in pairwise(dated))
 
 
 def _detect_duplicate_sessions(context: AthleteContext) -> list[DerivedIssue]:
@@ -210,15 +211,15 @@ def derive_metrics(context: AthleteContext, today: date | None = None) -> Derive
     missing_hr_ratio = len(missing_hr) / len(hr_eligible) if hr_eligible else None
 
     durations = [
-        duration
-        for session in run_sessions
-        if (duration := _session_duration(session)) is not None
+        duration for session in run_sessions if (duration := _session_duration(session)) is not None
     ]
     quality_recent = sum(1 for session in sessions if is_quality_session(session))
 
     plan_weeks = _sorted_weeks(context.proposed_plan.weeks) if context.proposed_plan else []
     plan_volumes = [float(week.distance_km or 0) for week in plan_weeks]
-    plan_quality_by_week = [sum(1 for s in week.sessions if is_quality_session(s)) for week in plan_weeks]
+    plan_quality_by_week = [
+        sum(1 for s in week.sessions if is_quality_session(s)) for week in plan_weeks
+    ]
 
     issues = _detect_duplicate_sessions(context) + _detect_session_anomalies(context)
     if missing_hr_ratio is not None and missing_hr_ratio >= 0.5:
@@ -241,9 +242,7 @@ def derive_metrics(context: AthleteContext, today: date | None = None) -> Derive
         recent_weeks_count=len(weeks),
         weekly_distance_km=volumes,
         average_weekly_distance_km=statistics.fmean(nonzero_volumes) if nonzero_volumes else None,
-        recent_four_week_average_km=(
-            statistics.fmean(volumes[-4:]) if len(volumes) >= 1 else None
-        ),
+        recent_four_week_average_km=(statistics.fmean(volumes[-4:]) if len(volumes) >= 1 else None),
         weekly_distance_cv=_coefficient_of_variation(volumes),
         max_week_over_week_increase_ratio=_max_increase_ratio(volumes),
         zero_or_missing_weeks=sum(1 for value in volumes if value <= 0),

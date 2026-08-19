@@ -77,9 +77,7 @@ def load_settings(config_path: str | Path | None = None) -> Settings:
     data["skill_path"] = resolve_resource_path(data["skill_path"])
 
     openai_data = dict(data.get("openai", {}))
-    openai_data["model"] = os.getenv(
-        "EAL_OPENAI_MODEL", openai_data.get("model", "gpt-5.6-luna")
-    )
+    openai_data["model"] = os.getenv("EAL_OPENAI_MODEL", openai_data.get("model", "gpt-5.6-luna"))
     openai_data["reasoning_effort"] = os.getenv(
         "EAL_OPENAI_REASONING_EFFORT", openai_data.get("reasoning_effort", "medium")
     )

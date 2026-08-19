@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
+from pydantic import BaseModel
 from rich.console import Console
 from rich.table import Table
 
@@ -166,17 +167,18 @@ def audit_command(
     settings = _settings(config)
     if bool(case) == bool(context):
         raise typer.BadParameter("Supply exactly one of --case or --context.")
-    benchmark_case = (
-        _load_case(case or "", settings.benchmark_path)
-        if case
-        else make_ad_hoc_case(load_model(context, AthleteContext))
-    )
+    if context is not None:
+        benchmark_case = make_ad_hoc_case(load_model(context, AthleteContext))
+    else:
+        benchmark_case = _load_case(case or "", settings.benchmark_path)
     selected_provider = _provider(provider or settings.provider, settings, model, replay_dir)
     skill = load_skill(settings.skill_path)
     derived = derive_metrics(benchmark_case.context)
     result = selected_provider.audit(benchmark_case, skill, derived)
 
-    destination = output or settings.runs_dir / f"audit-{compact_timestamp()}-{benchmark_case.case_id}"
+    destination = (
+        output or settings.runs_dir / f"audit-{compact_timestamp()}-{benchmark_case.case_id}"
+    )
     destination.mkdir(parents=True, exist_ok=False)
     dump_data(benchmark_case.context, destination / "context.yaml")
     dump_data(derived, destination / "derived.json")
@@ -273,7 +275,7 @@ def export_schemas(
     from .models.benchmark import BenchmarkCase, BenchmarkManifest
     from .models.run import CaseGrade, RunManifest, RunSummary
 
-    models = {
+    models: dict[str, type[BaseModel]] = {
         "athlete-context.schema.json": AthleteContext,
         "audit-output.schema.json": AuditOutput,
         "benchmark-case.schema.json": BenchmarkCase,

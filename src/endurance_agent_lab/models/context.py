@@ -7,7 +7,6 @@ from pydantic import Field, model_validator
 
 from .common import Intensity, RaceType, SignalType, Sport, StrictModel
 
-
 Scalar = str | int | float | bool
 
 
@@ -42,7 +41,7 @@ class PerformanceMarker(StrictModel):
     confidence: float = Field(default=1.0, ge=0.0, le=1.0)
 
     @model_validator(mode="after")
-    def derive_pace(self) -> "PerformanceMarker":
+    def derive_pace(self) -> PerformanceMarker:
         if self.pace_seconds_per_km is None and self.distance_km and self.time_seconds:
             self.pace_seconds_per_km = self.time_seconds / self.distance_km
         return self
@@ -67,7 +66,7 @@ class TrainingSession(StrictModel):
     notes: str | None = None
 
     @model_validator(mode="after")
-    def derive_session_pace(self) -> "TrainingSession":
+    def derive_session_pace(self) -> TrainingSession:
         if (
             self.pace_seconds_per_km is None
             and self.distance_km
@@ -88,7 +87,7 @@ class TrainingWeek(StrictModel):
     notes: str | None = None
 
     @model_validator(mode="after")
-    def derive_week_totals(self) -> "TrainingWeek":
+    def derive_week_totals(self) -> TrainingWeek:
         if self.distance_km is None and self.sessions:
             values = [s.distance_km for s in self.sessions if s.distance_km is not None]
             self.distance_km = round(sum(values), 3) if values else None

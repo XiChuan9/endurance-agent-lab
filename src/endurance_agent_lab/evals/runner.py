@@ -88,7 +88,10 @@ def run_benchmark(
                     )
 
     records = [records_by_id[case.case_id] for case in benchmark.cases]
-    dump_data([record.model_dump(mode="json", exclude_none=True) for record in records], run_dir / "records.json")
+    dump_data(
+        [record.model_dump(mode="json", exclude_none=True) for record in records],
+        run_dir / "records.json",
+    )
     summary = aggregate_run(run_id, provider.name, provider.model, records, benchmark.cases)
     write_run_reports(run_dir, manifest, summary, records)
     return run_dir, manifest, summary, records
