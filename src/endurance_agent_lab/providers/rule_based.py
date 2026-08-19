@@ -911,10 +911,13 @@ class RuleBasedProvider(AuditProvider):
         for strength in dated:
             if strength.sport.value != "strength":
                 continue
+            strength_date = strength.session_date
+            if strength_date is None:
+                continue
             for quality in dated:
                 if not is_quality_session(quality) or quality.session_date is None:
                     continue
-                if quality.session_date - strength.session_date == timedelta(days=1):
+                if quality.session_date - strength_date == timedelta(days=1):
                     refs = [
                         f"plan-session:{strength.session_id}",
                         f"plan-session:{quality.session_id}",

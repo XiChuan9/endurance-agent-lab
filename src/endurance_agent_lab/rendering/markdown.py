@@ -32,9 +32,10 @@ def render_audit_markdown(audit: AuditOutput) -> str:
         lines.append("- No material data-quality issue was identified.")
 
     lines.extend(["", "## Current athlete state", ""])
-    for item in audit.athlete_state:
+    for capability in audit.athlete_state:
         lines.append(
-            f"- **{item.capability}: {item.status.value}** ({item.confidence:.0%}) — {item.rationale}"
+            f"- **{capability.capability}: {capability.status.value}** "
+            f"({capability.confidence:.0%}) — {capability.rationale}"
         )
 
     lines.extend(["", "## Goal analysis", ""])
@@ -46,10 +47,10 @@ def render_audit_markdown(audit: AuditOutput) -> str:
     )
 
     lines.extend(["", "## Limiters", ""])
-    for item in audit.limiters:
+    for limiter in audit.limiters:
         lines.append(
-            f"- **{item.priority.value}: {item.limiter}** — {item.rationale} "
-            f"(confidence {item.confidence:.0%})"
+            f"- **{limiter.priority.value}: {limiter.limiter}** — {limiter.rationale} "
+            f"(confidence {limiter.confidence:.0%})"
         )
     if not audit.limiters:
         lines.append("- No high-confidence limiter was established.")
