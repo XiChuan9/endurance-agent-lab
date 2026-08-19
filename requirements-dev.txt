@@ -1,6 +1,7 @@
 -r requirements.txt
 build>=1.5,<2
 mypy>=2.0,<3
+openai>=1.99,<3
 pre-commit>=4.6,<5
 pytest==9.0.2
 pytest-cov==7.0.0
