@@ -45,9 +45,9 @@ def load_benchmark(
 
 
 def make_ad_hoc_case(context: object, case_id: str = "END-000") -> BenchmarkCase:
+    from ..models.benchmark import BenchmarkRubric, DimensionRubric
     from ..models.common import ScoreDimension
     from ..models.context import AthleteContext
-    from ..models.benchmark import BenchmarkRubric, DimensionRubric
 
     athlete_context = AthleteContext.model_validate(context)
     dimensions = {

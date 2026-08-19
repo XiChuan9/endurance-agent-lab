@@ -39,9 +39,7 @@ class OpenAIProvider(AuditProvider):
         try:
             from openai import OpenAI
         except ImportError as exc:
-            raise ProviderError(
-                'The OpenAI provider requires: pip install -e ".[openai]"'
-            ) from exc
+            raise ProviderError('The OpenAI provider requires: pip install -e ".[openai]"') from exc
 
         client = OpenAI(
             timeout=self.timeout_seconds,

@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from datetime import date
 
+from endurance_agent_lab.io import dump_data
 from endurance_agent_lab.longitudinal import (
     add_snapshot,
     attach_audit,
     initialize_track,
     latest_snapshot,
 )
-from endurance_agent_lab.io import dump_data
 from endurance_agent_lab.models.audit import (
     AuditOutput,
     DataQualityAssessment,

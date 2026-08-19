@@ -50,7 +50,9 @@ def add_snapshot(
     return record
 
 
-def latest_snapshot(track_dir: str | Path) -> tuple[TrackManifest, TrackSnapshotRecord, AthleteContext]:
+def latest_snapshot(
+    track_dir: str | Path,
+) -> tuple[TrackManifest, TrackSnapshotRecord, AthleteContext]:
     root = Path(track_dir)
     manifest = load_model(root / "track.yaml", TrackManifest)
     if not manifest.snapshots:

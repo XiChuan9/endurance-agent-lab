@@ -176,7 +176,9 @@ def audit_command(
     derived = derive_metrics(benchmark_case.context)
     result = selected_provider.audit(benchmark_case, skill, derived)
 
-    destination = output or settings.runs_dir / f"audit-{compact_timestamp()}-{benchmark_case.case_id}"
+    destination = (
+        output or settings.runs_dir / f"audit-{compact_timestamp()}-{benchmark_case.case_id}"
+    )
     destination.mkdir(parents=True, exist_ok=False)
     dump_data(benchmark_case.context, destination / "context.yaml")
     dump_data(derived, destination / "derived.json")

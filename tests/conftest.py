@@ -7,7 +7,6 @@ import pytest
 from endurance_agent_lab.evals import LoadedBenchmark, load_benchmark
 from endurance_agent_lab.skills import SkillBundle, load_skill
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK_ROOT = PROJECT_ROOT / "benchmarks" / "endurancebench-v0.1"
 SKILL_ROOT = PROJECT_ROOT / "skills" / "training-plan-auditor"

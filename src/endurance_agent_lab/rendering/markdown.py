@@ -67,9 +67,7 @@ def render_audit_markdown(audit: AuditOutput) -> str:
 
     lines.extend(["", "## Recommended changes", ""])
     for change in audit.recommended_changes:
-        lines.append(
-            f"- **{change.action.value.upper()} · {change.target}** — {change.rationale}"
-        )
+        lines.append(f"- **{change.action.value.upper()} · {change.target}** — {change.rationale}")
 
     lines.extend(["", "## Uncertainty boundary", ""])
     if audit.uncertainty.should_not_infer:
@@ -81,8 +79,7 @@ def render_audit_markdown(audit: AuditOutput) -> str:
 
     lines.extend(["", "## Machine-readable claim registry", ""])
     lines.extend(
-        f"- `{claim.code}` — {claim.statement} ({claim.confidence:.0%})"
-        for claim in audit.claims
+        f"- `{claim.code}` — {claim.statement} ({claim.confidence:.0%})" for claim in audit.claims
     )
     lines.extend(
         [
@@ -116,9 +113,7 @@ def render_run_markdown(
         "| Dimension | Score |",
         "|---|---:|",
     ]
-    lines.extend(
-        f"| {name} | {value:.2f}% |" for name, value in summary.dimension_scores.items()
-    )
+    lines.extend(f"| {name} | {value:.2f}% |" for name, value in summary.dimension_scores.items())
     lines.extend(
         [
             "",
@@ -196,6 +191,6 @@ def render_run_html(
 
 
 def _format_pace(seconds: float) -> str:
-    rounded = int(round(seconds))
+    rounded = round(seconds)
     minutes, remainder = divmod(rounded, 60)
     return f"{minutes}:{remainder:02d}"

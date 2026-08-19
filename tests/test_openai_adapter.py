@@ -7,9 +7,7 @@ from endurance_agent_lab.analytics import derive_metrics
 from endurance_agent_lab.providers import OpenAIProvider, RuleBasedProvider
 
 
-def test_openai_adapter_parses_versioned_audit_contract(
-    benchmark, skill, monkeypatch
-) -> None:
+def test_openai_adapter_parses_versioned_audit_contract(benchmark, skill, monkeypatch) -> None:
     case = benchmark.by_id("END-016")
     derived = derive_metrics(case.context)
     expected = RuleBasedProvider().audit(case, skill, derived).audit

@@ -4,7 +4,6 @@ from typer.testing import CliRunner
 
 from endurance_agent_lab.cli import app
 
-
 runner = CliRunner()
 
 
