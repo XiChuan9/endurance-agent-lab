@@ -42,11 +42,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-openai = ["openai>=1.99,<3"]
+openai = ["openai>=1.99,<4"]
 dev = [
   "build>=1.5,<2",
   "mypy>=2.0,<3",
-  "openai>=1.99,<3",
+  "openai>=1.99,<4",
   "pre-commit>=4.6,<5",
   "pytest>=8,<10",
   "pytest-cov>=6,<8",
@@ -54,7 +54,7 @@ dev = [
   "types-PyYAML>=6.0"
 ]
 all = [
-  "openai>=1.99,<3",
+  "openai>=1.99,<4",
   "build>=1.5,<2",
   "mypy>=2.0,<3",
   "pre-commit>=4.6,<5",
