@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use Endurance Agent Lab or EnduranceBench in research or evaluation, please cite this software release."
 title: "Endurance Agent Lab"
 type: software
-version: 0.1.0
-date-released: 2026-08-18
+version: 0.1.1
+date-released: 2026-08-19
 authors:
   - family-names: "XiChuan9"
 repository-code: "https://github.com/XiChuan9/endurance-agent-lab"

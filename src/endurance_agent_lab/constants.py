@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 PACKAGE_NAME = "endurance-agent-lab"
-PACKAGE_VERSION = "0.1.0"
+PACKAGE_VERSION = "0.1.1"
 DEFAULT_BENCHMARK_PATH = "benchmarks/endurancebench-v0.1"
 DEFAULT_SKILL_PATH = "skills/training-plan-auditor"
 DEFAULT_RUNS_DIR = "runs"
